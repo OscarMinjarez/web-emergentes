@@ -9,7 +9,7 @@ const dataSource = new typeorm.DataSource({
     password: "1234",
     database: "sonorasia",
     synchronize: true,
-    entities: [path.join(__dirname, "..", "entities/**/*.js")]
+    entities: [path.join(__dirname, ".", "entities/**/*.js")]
 })
 
 module.exports = dataSource;
