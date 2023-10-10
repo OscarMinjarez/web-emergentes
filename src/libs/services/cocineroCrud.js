@@ -1,5 +1,5 @@
 const { getRepository } = require("typeorm");
-const Cocinero = require("./Cocinero"); // Asegúrate de tener el archivo del esquema
+const Cocinero = require("../entities/cocinero"); // Asegúrate de tener el archivo del esquema
 
 const cocineroRepository = getRepository(Cocinero);
 

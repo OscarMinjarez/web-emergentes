@@ -1,3 +1,5 @@
+const { crearCocinero } = require('../services/cocineroCrud');
+
 console.log("Comenzando prueba de crearCocinero");
 
 crearCocinero({ nombreUsuario: 'chef123', contrasenia: 'secreta123' })
