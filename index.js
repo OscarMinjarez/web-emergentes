@@ -1,11 +1,12 @@
 const express = require("express");
 const dataSource = require("./src/libs/bd");
 
+const routes = require("./src/routes/index");
+
 const app = express();
 
-app.get("/", (req, res) => {
-    res.send("Servidor de express funcionando");
-});
+app.use(express.json());
+app.use(routes);
 
 dataSource.initialize().then(() => {
     console.log("Conectado a la base de datos");
