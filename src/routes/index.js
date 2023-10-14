@@ -1,10 +1,12 @@
 const { Router } = require("express");
 const IngredientesController = require("../controllers/ingredientes-controller");
 const MeserosController = require("../controllers/meseros-controller");
+const CocinerosController = require("../controllers/cocineros-controller")
 
 const router = new Router();
 const ingredientesController = new IngredientesController();
 const meserosController = new MeserosController();
+const cocinerosController = new CocinerosController();
 
 router.get("/", (req, res) => res.send("Hello World"));
 
@@ -48,5 +50,26 @@ router.patch("/meseros/:id", async (req, res) => {
 //Eliminar un mesero
 router.delete("/meseros/:id", async (req, res) => {
     await meserosController.eliminar(req, res);
+});
+//Direccionamiento entidad cocinero
+//Obtener todos los cocineros por id
+router.get("/cocineros/:id", async (req, res) => {
+    await cocinerosController.obtenerPorId(req, res);
+});
+//Obtener todos los cocineros
+router.get("/cocineros", async (req, res) => {
+    await cocinerosController.obtenerTodos(req, res);
+});
+//Crear un cocinero
+router.post("/cocineros", async (req, res) => {
+    await cocinerosController.crear(req, res);
+});
+//Actualizar un cocinero
+router.patch("/cocineros/:id", async (req, res) => {
+    await cocinerosController.actualizar(req, res);
+});
+//Eliminar un cocinero
+router.delete("/cocineros/:id", async (req, res) => {
+    await cocinerosController.eliminar(req, res);
 });
 module.exports = router;
