@@ -1,4 +1,4 @@
-class Mesero{
+class Cocinero{
  constructor(id, nombreUsuario, contrasenia, superUsuarioId) {
         this.id = id;
         this.nombreUsuario=nombreUsuario;
@@ -6,4 +6,4 @@ class Mesero{
         this.superUsuarioId=superUsuarioId;
     }
 }
-module.exports = Mesero;
+module.exports = Cocinero;
