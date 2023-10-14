@@ -1,4 +1,4 @@
-erconst dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd");
 const Mesero = require("../models/mesero");
 
 class MeserosService{
