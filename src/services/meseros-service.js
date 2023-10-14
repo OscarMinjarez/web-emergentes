@@ -1,4 +1,4 @@
-const dataSource = require("../libs/bd");
+erconst dataSource = require("../libs/bd");
 const Mesero = require("../models/mesero");
 
 class MeserosService{
@@ -50,7 +50,7 @@ class MeserosService{
             throw Error("No existe el mesero a eliminar");
         }
 
-        return await this.meseroRepository.remove(ingredienteGuardado);
+        return await this.meseroRepository.remove(meseroGuardado);
     }
 }
 module.exports = MeserosService;
