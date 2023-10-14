@@ -12,14 +12,14 @@ class MeserosService{
     }
   async obtenerTodos() {
         return await this.meseroRepository.find({
-            select: ["id", "nombreMesero", "contrasenia"]
+            select: ["id", "nombreUsuario", "contrasenia"]
         });
     }
    async crear(mesero) {
         if (!mesero) {
             throw Error("No se puede agregar un mesero");
         }
-        if (!mesero.nombreMesero) {
+        if (!mesero.nombreUsuario) {
             throw Error("No se puede crear un mesero sin un nombre");
         }
 
