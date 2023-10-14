@@ -6,6 +6,8 @@ const ingredientesController = new IngredientesController();
 
 router.get("/", (req, res) => res.send("Hello World"));
 
+// TODO: Agregar middleware de autenticación
+
 router.get("/ingredientes/:id", async (req, res) => {
     await ingredientesController.obtenerPorId(req, res);
 });

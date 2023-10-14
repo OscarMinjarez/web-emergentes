@@ -8,12 +8,14 @@ const app = express();
 app.use(express.json());
 app.use(routes);
 
+app.listen(3000, () => {
+    console.log("Server funcionando en el puerto 3000");
+});
+
 dataSource.initialize().then(() => {
     console.log("Conectado a la base de datos");
 
-    app.listen(3000, () => {
-        console.log("Server funcionando en el puerto 3000");
-    });
+    
 }).catch((err) => {
     console.log(err);
 });

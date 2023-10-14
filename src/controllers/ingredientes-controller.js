@@ -27,7 +27,7 @@ class IngredientesController {
     async crear(req, res) {
         try {
             const ingrediente = req.body;
-            const nuevoIngrediente = this.ingredientesService.crear(ingrediente);
+            const nuevoIngrediente = await this.ingredientesService.crear(ingrediente);
             res.status(201).json(nuevoIngrediente);
         } catch (e) {
             res.status(400).json({ error: e.message });
@@ -37,7 +37,7 @@ class IngredientesController {
     async actualizar(req, res) {
         try {
             const id = req.params.id;
-            const ingredienteActualizado = this.ingredientesService.actualizar(id, req.body);
+            const ingredienteActualizado = await this.ingredientesService.actualizar(id, req.body);
             res.status(201).json(ingredienteActualizado);
         } catch (e) {
             res.status(400).json({ error: e.message });
@@ -47,7 +47,7 @@ class IngredientesController {
     async eliminar(req, res) {
         try {
             const id = req.params.id;
-            const ingredienteEliminado = this.ingredientesService.eliminar(id);
+            const ingredienteEliminado = await this.ingredientesService.eliminar(id);
             res.status(201).json(ingredienteEliminado);
         } catch (e) {
             res.status(500).json({ error: e.message });
