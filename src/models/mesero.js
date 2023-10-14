@@ -6,3 +6,4 @@ class Mesero{
         this.superUsuarioId=superUsuarioId;
     }
 }
+module.exports = Mesero;
