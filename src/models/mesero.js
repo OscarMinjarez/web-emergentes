@@ -1,7 +1,7 @@
 class Mesero{
- constructor(id, nombreMesero, contrasenia, superUsuarioId) {
+ constructor(id, nombreUsuario, contrasenia, superUsuarioId) {
         this.id = id;
-        this.nombreMesero=nombreMesero;
+        this.nombreUsuario=nombreUsuario;
         this.contrasenia=contrasenia;
         this.superUsuarioId=superUsuarioId;
     }
