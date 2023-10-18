@@ -1,9 +1,9 @@
 class Mesero{
  constructor(id, nombreUsuario, contrasenia, superUsuarioId) {
         this.id = id;
-        this.nombreUsuario=nombreUsuario;
-        this.contrasenia=contrasenia;
-        this.superUsuarioId=superUsuarioId;
+        this.nombreUsuario = nombreUsuario;
+        this.contrasenia = contrasenia;
+        this.superUsuarioId = superUsuarioId;
     }
 }
 module.exports = Mesero;

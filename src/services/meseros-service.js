@@ -2,20 +2,23 @@ const dataSource = require("../libs/bd");
 const Mesero = require("../models/mesero");
 
 class MeserosService{
-  constructor(){
-    this.meseroRepository = dataSource.getRepository("Mesero");
-  }
-  async obtenerPorId(id) {
+    constructor(){
+        this.meseroRepository = dataSource.getRepository("Mesero");
+    }
+
+    async obtenerPorId(id) {
         return await this.meseroRepository.findOne({
             where: { id }
         });
     }
-  async obtenerTodos() {
+
+    async obtenerTodos() {
         return await this.meseroRepository.find({
             select: ["id", "nombreUsuario", "contrasenia"]
         });
     }
-   async crear(mesero) {
+
+    async crear(mesero) {
         if (!mesero) {
             throw Error("No se puede agregar un mesero");
         }
@@ -32,7 +35,8 @@ class MeserosService{
 
         return await this.meseroRepository.save(nuevoMesero);
     }
-  async actualizar(id, nuevoMesero) {
+
+    async actualizar(id, nuevoMesero) {
         const meseroGuardado = await this.obtenerPorId(id);
 
         if (!meseroGuardado) {
@@ -43,7 +47,8 @@ class MeserosService{
 
         return await this.meseroRepository.save(meseroGuardado);
     }
-   async eliminar(id) {
+
+    async eliminar(id) {
         const meseroGuardado = await this.obtenerPorId(id);
 
         if (!meseroGuardado) {
@@ -53,4 +58,5 @@ class MeserosService{
         return await this.meseroRepository.remove(meseroGuardado);
     }
 }
+
 module.exports = MeserosService;

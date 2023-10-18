@@ -4,7 +4,8 @@ class CocinerosController {
     constructor() {
         this.cocinerosService = new CocineroService();
     }
-  async obtenerPorId(req, res) {
+
+    async obtenerPorId(req, res) {
         try {
             const id = req.params.id;
             const cocinero = await this.cocinerosService.obtenerPorId(id);
@@ -13,7 +14,8 @@ class CocinerosController {
             res.status(500).json({ error: e.message });
         }
     }
-  async obtenerTodos(req, res) {
+    
+    async obtenerTodos(req, res) {
         try {
             const cocineros = await this.cocinerosService.obtenerTodos();
             res.status(200).json(cocineros);
@@ -21,32 +23,36 @@ class CocinerosController {
             res.status(500).json({ error: e.message });
         }
     }
-  async crear(req, res) {
+
+    async crear(req, res) {
         try {
             const cocinero = req.body;
-            const nuevoCocinero = this.cocinerosService.crear(cocinero);
+            const nuevoCocinero = await this.cocinerosService.crear(cocinero);
             res.status(201).json(nuevoCocinero);
         } catch (e) {
             res.status(400).json({ error: e.message });
         }
     }
+
     async actualizar(req, res) {
         try {
             const id = req.params.id;
-            const cocineroActualizado = this.cocinerosService.actualizar(id, req.body);
+            const cocineroActualizado = await this.cocinerosService.actualizar(id, req.body);
             res.status(201).json(cocineroActualizado);
         } catch (e) {
             res.status(400).json({ error: e.message });
         }
     }
-  async eliminar(req, res) {
+
+    async eliminar(req, res) {
         try {
             const id = req.params.id;
-            const cocineroEliminado = this.cocinerosService.eliminar(id);
+            const cocineroEliminado = await this.cocinerosService.eliminar(id);
             res.status(201).json(cocineroEliminado);
         } catch (e) {
             res.status(500).json({ error: e.message });
         }
     }
 }
+
 module.exports = CocinerosController;
