@@ -15,6 +15,12 @@ const administradoresController = new AdministradoresController();
 //Importar productos-controller
 const ProductosController = require("../controllers/productos-controller");
 const productosController = new ProductosController();
+//Importar Ordenes-controller
+const OrdenesController = require ("../controllers/ordenes-controller");
+const ordenesController = new OrdenesController();
+//Importar Super_usuariosController
+const SuperUsuariosController = require("../controllers/super_usuarios-controller");
+const superUsuariosController= new SuperUsuariosController();
 
 router.get("/", (req, res) => res.send("Hello World"));
 
@@ -126,3 +132,43 @@ router.delete("/productos/:id", async (req, res) => {
     await productosController.eliminarProductos(req, res);
 });
 module.exports = router;
+
+// Obtener una orden por id
+router.get("/ordenes/:id", async (req, res) => {
+    await ordenesController.obtenerPorId(req, res);
+});
+
+// Obtener todas las ordenes
+router.get("/ordenes", async (req, res) => {
+    await ordenesController.obtenerTodos(req, res);
+});
+
+// Actualizar una orden
+router.patch("/ordenes/:id", async (req, res) => {
+    await ordenesController.actualizar(req, res);
+});
+
+// Eliminar una orden
+router.delete("/ordenes/:id", async (req, res) => {
+    await ordenesController.eliminar(req, res);
+});
+
+// Obtener un super usuario por id
+router.get("/superusuarios/:id", async (req, res) => {
+    await superUsuariosController.obtenerPorId(req, res);
+});
+
+// Obtener todos los super usuarios
+router.get("/superusuarios", async (req, res) => {
+    await superUsuariosController.obtenerTodos(req, res);
+});
+
+// Actualizar un super usuario
+router.patch("/superusuarios/:id", async (req, res) => {
+    await superUsuariosController.actualizar(req, res);
+});
+
+// Eliminar un super usuario
+router.delete("/superusuarios/:id", async (req, res) => {
+    await superUsuariosController.eliminar(req, res);
+});
