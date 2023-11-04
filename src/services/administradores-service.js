@@ -2,19 +2,22 @@ const dataSource = require("../libs/bd");
 const Administrador = require("../models/administrador");
 
 class AdministradoresService{
-    constructor(){
+    constructor() {
         this.administradorRepository = dataSource.getRepository("Administrador");
-      }
+    }
+
       async obtenerPorIdAdministradores(id) {
         return await this.administradorRepository.findOne({
             where: { id }
         });
     }
+
     async obtenerTodosAdministradores() {
         return await this.administradorRepository.find({
             select: ["id", "nombreUsuario", "contrasenia"]
         });
     }
+
     async crearAdministradores(administrador) {
         if (!administrador) {
             throw Error("No se puede agregar un administrador");
@@ -32,6 +35,7 @@ class AdministradoresService{
 
         return await this.administradorRepository.save(nuevoAdministrador);
     }
+
     async actualizarAdministrdores(id, nuevoAdministrador) {
         const administradorGuardado = await this.obtenerPorIdAdministradores(id);
 
@@ -43,6 +47,7 @@ class AdministradoresService{
 
         return await this.administradorRepository.save(administradorGuardado);
     }
+
     async eliminarAdministradores(id) {
         const administradorGuardado = await this.obtenerPorIdAdministradores(id);
 
@@ -53,4 +58,5 @@ class AdministradoresService{
         return await this.administradorRepository.remove(administradorGuardado);
     }
 }
+
 module.exports= AdministradoresService;

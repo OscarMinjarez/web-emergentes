@@ -1,9 +1,10 @@
-class Super_Usuario{
- constructor(id, nombreUsuario, correo, contrasenia) {
+class SuperUsuario{
+    constructor(id, nombreUsuario, correo, contrasenia) {
         this.id = id;
         this.nombreUsuario = nombreUsuario;
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
 }
-module.exports = Super_Usuario;
+
+module.exports = SuperUsuario;

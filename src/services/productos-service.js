@@ -2,20 +2,22 @@ const dataSource = require("../libs/bd");
 const Producto = require("../models/producto");
 
 class ProductosService{
-    constructor(){
+    constructor() {
         this.productoRepository = dataSource.getRepository("Producto");
-      }
+    }
 
-      async obtenerPorIdProductos(id) {
+    async obtenerPorIdProductos(id) {
         return await this.productoRepository.findOne({
             where: { id }
         });
     }
+
     async obtenerTodosProductos() {
         return await this.productoRepository.find({
             select: ["id", "nombreProducto"]
         });
     }
+
     async crearProductos(producto) {
         if (!producto) {
             throw Error("No se puede agregar un producto");
@@ -29,6 +31,7 @@ class ProductosService{
 
         return await this.productoRepository.save(nuevoProducto);
     }
+
     async actualizarProductos(id, nuevoProducto) {
         const productoGuardado = await this.obtenerPorIdProductos(id);
 
@@ -40,6 +43,7 @@ class ProductosService{
 
         return await this.productoRepository.save(productoGuardado);
     }
+
     async eliminarProductos(id) {
         const productoGuardado = await this.obtenerPorIdProductos(id);
 
@@ -49,6 +53,6 @@ class ProductosService{
 
         return await this.productoRepository.remove(productoGuardado);
     }
-
 }
+
 module.exports= ProductosService;

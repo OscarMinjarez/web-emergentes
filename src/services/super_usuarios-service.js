@@ -1,8 +1,8 @@
 const dataSource = require("../libs/bd");
-const SuperUsuario = require("../models/super_usuario");
+const SuperUsuario = require("../models/superUsuario");
 
 class SuperUsuariosService {
-    constructor(){
+    constructor() {
         this.superUsuarioRepository = dataSource.getRepository("SuperUsuario");
     }
 
@@ -60,6 +60,15 @@ class SuperUsuariosService {
         }
 
         return await this.superUsuarioRepository.remove(superUsuarioGuardado);
+    }
+
+    async autenticarSuperUsuario(superUsuario) {
+        return await this.superUsuarioRepository.findOne({
+            where: {
+                correo: superUsuario.correo,
+                contrasenia: superUsuario.contrasenia
+            }
+        });
     }
 }
 
