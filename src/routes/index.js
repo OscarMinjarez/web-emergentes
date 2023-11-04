@@ -20,12 +20,16 @@ const OrdenesController = require ("../controllers/ordenes-controller");
 const ordenesController = new OrdenesController();
 //Importar Super_usuariosController
 const SuperUsuariosController = require("../controllers/super_usuarios-controller");
+const TokenManager = require("../libs/utils/token-manager");
 const superUsuariosController= new SuperUsuariosController();
 
 router.get("/", (req, res) => res.send("Hello World"));
 
-//Direccionamiento para entidad Ingredientes
 // TODO: Agregar middleware de autenticación
+
+router.post("/auth", async (req, res) => {
+    await superUsuariosController.autenticarSuperUsuario(req, res);
+});
 
 router.get("/ingredientes/:id", async (req, res) => {
     await ingredientesController.obtenerPorId(req, res);
@@ -46,65 +50,79 @@ router.patch("/ingredientes/:id", async (req, res) => {
 router.delete("/ingredientes/:id", async (req, res) => {
     await ingredientesController.eliminar(req, res);
 });
+
 //Direccionamiento entidad cocinero
 //Obtener todos los cocineros por id
 router.get("/cocineros/:id", async (req, res) => {
     await cocinerosController.obtenerPorIdCocineros(req, res);
 });
+
 //Obtener todos los cocineros
-router.get("/cocineros", async (req, res) => {
-    await cocinerosController.obtenerTodosCocineros(req, res);
+router.get("/cocineros", TokenManager.validarToken, async (req, res) => {
+    await cocinerosController.obtenerTodos(req, res);
 });
+
 //Crear un cocinero
 router.post("/cocineros", async (req, res) => {
     await cocinerosController.crearCocineros(req, res);
 });
+
 //Actualizar un cocinero
 router.patch("/cocineros/:id", async (req, res) => {
     await cocinerosController.actualizarCocineros(req, res);
 });
+
 //Eliminar un cocinero
 router.delete("/cocineros/:id", async (req, res) => {
     await cocinerosController.eliminarCocineros(req, res);
 });
+
 //Direccionamiento entidad mesero
 //Obtener todos los meseros por id
 router.get("/meseros/:id", async (req, res) => {
     await meserosController.obtenerPorIdMeseros(req, res);
 });
+
 //Obtener todos los meseros
-router.get("/meseros", async (req, res) => {
-    await meserosController.obtenerTodosMeseros(req, res);
+router.get("/meseros", TokenManager.validarToken, async (req, res) => {
+    await meserosController.obtenerTodos(req, res);
 });
+
 //Crear un mesero
 router.post("/meseros", async (req, res) => {
     await meserosController.crearMesero(req, res);
 });
+
 //Actualizar un mesero
 router.patch("/meseros/:id", async (req, res) => {
     await meserosController.actualizarMeseros(req, res);
 });
+
 //Eliminar un mesero
 router.delete("/meseros/:id", async (req, res) => {
     await meserosController.eliminarMesero(req, res);
 });
+
 //Direccionamiento entidad administrador
 //Obtener todos los administradores por id
 router.get("/administradores/:id", async (req, res) => {
     await administradoresController.obtenerPorIdAdministradores(req, res);
 });
 //Obtener todos los administradores
-router.get("/administradores", async (req, res) => {
-    await administradoresController.obtenerTodosAdministradores(req, res);
+router.get("/administradores", TokenManager.validarToken, async (req, res) => {
+    await administradoresController.obtenerTodos(req, res);
 });
+
 //Crear un administrador
 router.post("/administradores", async (req, res) => {
     await administradoresController.crearAdministradores(req, res);
 });
+
 //Actualizar un administrador
 router.patch("/administradores/:id", async (req, res) => {
     await administradoresController.actualizarAdministradores(req, res);
 });
+
 //Eliminar un administrador
 router.delete("/administradores/:id", async (req, res) => {
     await administradoresController.eliminarAdministradores(req, res);
@@ -161,6 +179,10 @@ router.get("/superusuarios/:id", async (req, res) => {
 // Obtener todos los super usuarios
 router.get("/superusuarios", async (req, res) => {
     await superUsuariosController.obtenerTodos(req, res);
+});
+
+router.post("/superusuarios", async (req, res) => {
+    await superUsuariosController.crear(req, res);
 });
 
 // Actualizar un super usuario

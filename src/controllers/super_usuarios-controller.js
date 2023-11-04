@@ -1,4 +1,6 @@
 const SuperUsuariosService = require("../services/super_usuarios-service");
+const SuperUsuario = require("../models/superUsuario");
+const TokenManager = require("../libs/utils/token-manager");
 
 class SuperUsuariosController {
     constructor() {
@@ -54,6 +56,29 @@ class SuperUsuariosController {
             res.status(500).json({ error: e.message });
         }
     }
+
+    async autenticarSuperUsuario(req, res) {
+        try {
+            const { correo, contrasenia } = req.body;
+            const superUsuario = new SuperUsuario();
+
+            superUsuario.correo = correo;
+            superUsuario.contrasenia = contrasenia;
+
+            const superUsuarioAutenticado = await this.superUsuariosService.autenticarSuperUsuario(superUsuario);
+
+            const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(superUsuarioAutenticado.contrasenia);
+            res.header("authorization", tokenDeAcceso).json({
+                mensaje: "Usuario autenticado",
+                token: tokenDeAcceso,
+                superUsuarioAutenticado
+            });
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
+    }
+
+    
 }
 
 module.exports = SuperUsuariosController;
