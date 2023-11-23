@@ -1,10 +1,10 @@
-const SuperUsuariosService = require("../services/super_usuarios-service");
 const SuperUsuario = require("../models/superUsuario");
 const TokenManager = require("../libs/utils/token-manager");
+const SuperUsuarioService = require("../services/super_usuarios-service");
 
 class SuperUsuariosController {
     constructor() {
-        this.superUsuariosService = new SuperUsuariosService();
+        this.superUsuariosService = new SuperUsuarioService();
     }
 
     async obtenerPorId(req, res) {
@@ -61,24 +61,19 @@ class SuperUsuariosController {
         try {
             const { correo, contrasenia } = req.body;
             const superUsuario = new SuperUsuario();
-
             superUsuario.correo = correo;
             superUsuario.contrasenia = contrasenia;
-
             const superUsuarioAutenticado = await this.superUsuariosService.autenticarSuperUsuario(superUsuario);
-
+            if (!superUsuarioAutenticado) {
+                return res.redirect("/login");
+            }
             const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(superUsuarioAutenticado.contrasenia);
-            res.header("authorization", tokenDeAcceso).json({
-                mensaje: "Usuario autenticado",
-                token: tokenDeAcceso,
-                superUsuarioAutenticado
-            });
+            TokenManager.establecerCookie(res, tokenDeAcceso);
+            res.redirect("/home");
         } catch (e) {
             res.status(500).json({ error: e.message });
         }
     }
-
-    
 }
 
 module.exports = SuperUsuariosController;

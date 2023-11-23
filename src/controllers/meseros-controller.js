@@ -1,3 +1,5 @@
+const TokenManager = require("../libs/utils/token-manager");
+const Mesero = require("../models/mesero");
 const MeserosService = require("../services/meseros-service");
 
 class MeserosController {
@@ -49,6 +51,24 @@ class MeserosController {
             const id = req.params.id;
             const meseroEliminado = await this.meserosService.eliminar(id);
             res.status(201).json(meseroEliminado);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
+    }
+
+    async autenticarMesero(req, res) {
+        try {
+            const { nombreUsuario, contrasenia } = req.body;
+            const mesero = new Mesero();
+            mesero.nombreUsuario = nombreUsuario;
+            mesero.contrasenia = contrasenia;
+            const meseroAutenticado = await this.meserosService.autenticarSuperUsuario(mesero);
+            if (!meseroAutenticado) {
+                return res.redirect("/login");
+            }
+            const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(meseroAutenticado.contrasenia);
+            TokenManager.establecerCookie(res, tokenDeAcceso);
+            res.redirect("/home");
         } catch (e) {
             res.status(500).json({ error: e.message });
         }

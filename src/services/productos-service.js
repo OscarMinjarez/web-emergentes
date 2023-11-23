@@ -1,4 +1,4 @@
-const dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd_config");
 const Producto = require("../models/producto");
 
 class ProductosService{

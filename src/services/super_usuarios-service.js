@@ -1,4 +1,4 @@
-const dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd_config");
 const SuperUsuario = require("../models/superUsuario");
 
 class SuperUsuariosService {
@@ -67,6 +67,14 @@ class SuperUsuariosService {
             where: {
                 correo: superUsuario.correo,
                 contrasenia: superUsuario.contrasenia
+            }
+        });
+    }
+
+    async obtenerSuperUsuarioPorCorreo(correo) {
+        return await this.superUsuarioRepository.findOne({
+            where: {
+                correo
             }
         });
     }

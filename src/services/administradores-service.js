@@ -1,4 +1,4 @@
-const dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd_config");
 const Administrador = require("../models/administrador");
 
 class AdministradoresService{
@@ -14,7 +14,7 @@ class AdministradoresService{
 
     async obtenerTodosAdministradores() {
         return await this.administradorRepository.find({
-            select: ["id", "nombreUsuario", "contrasenia"]
+            select: ["id", "nombreUsuario", "puesto", "contrasenia"]
         });
     }
 

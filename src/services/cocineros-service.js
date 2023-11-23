@@ -1,4 +1,4 @@
-const dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd_config");
 const Cocinero = require("../models/cocinero");
 
 class CocinerosService {
@@ -14,7 +14,7 @@ class CocinerosService {
   
     async obtenerTodos() {
         return await this.cocineroRepository.find({
-            select: ["id", "nombreUsuario", "contrasenia"]
+            select: ["id", "nombreUsuario", "puesto", "contrasenia"]
         });
     }
    

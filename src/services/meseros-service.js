@@ -1,4 +1,4 @@
-const dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd_config");
 const Mesero = require("../models/mesero");
 
 class MeserosService{
@@ -14,7 +14,7 @@ class MeserosService{
 
     async obtenerTodos() {
         return await this.meseroRepository.find({
-            select: ["id", "nombreUsuario", "contrasenia"]
+            select: ["id", "nombreUsuario", "puesto", "contrasenia"]
         });
     }
 
@@ -56,6 +56,15 @@ class MeserosService{
         }
 
         return await this.meseroRepository.remove(meseroGuardado);
+    }
+
+    async autenticarSuperUsuario(mesero) {
+        return await this.meseroRepository.findOne({
+            where: {
+                nombreUsuario: mesero.nombreUsuario,
+                contrasenia: mesero.contrasenia
+            }
+        });
     }
 }
 

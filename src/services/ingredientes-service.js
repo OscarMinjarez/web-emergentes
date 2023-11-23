@@ -1,4 +1,4 @@
-const dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd_config");
 const Ingrediente = require("../models/ingrediente");
 
 class IngredientesService {

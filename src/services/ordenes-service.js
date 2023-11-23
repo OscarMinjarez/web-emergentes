@@ -1,5 +1,5 @@
 
-const dataSource = require("../libs/bd");
+const dataSource = require("../libs/bd_config");
 const Orden = require("../models/orden");
 
 class OrdenesService {
