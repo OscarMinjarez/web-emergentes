@@ -1,49 +1,55 @@
 const { Router } = require("express");
+const path = require("path");
 const router = new Router();
-//Importar ingredientes-controller
+const TokenManager = require("../libs/utils/token-manager");
 const IngredientesController = require("../controllers/ingredientes-controller");
 const ingredientesController = new IngredientesController();
-//Importar cocineros-controller
 const CocinerosController = require("../controllers/cocineros-controller");
 const cocinerosController = new CocinerosController();
-//Importar meseros-controller
 const MeserosController = require("../controllers/meseros-controller");
 const meserosController = new MeserosController();
-//Importar administradores-controller
 const AdministradoresController = require("../controllers/administradores-controller");
 const administradoresController = new AdministradoresController();
-//Importar productos-controller
 const ProductosController = require("../controllers/productos-controller");
 const productosController = new ProductosController();
-//Importar Ordenes-controller
 const OrdenesController = require ("../controllers/ordenes-controller");
 const ordenesController = new OrdenesController();
-//Importar Super_usuariosController
 const SuperUsuariosController = require("../controllers/super_usuarios-controller");
-const TokenManager = require("../libs/utils/token-manager");
 const superUsuariosController= new SuperUsuariosController();
 
-router.get("/", (req, res) => res.send("Hello World"));
+router.get("/home", TokenManager.validarToken, async (req, res) => {
+    res.sendFile(path.join(__dirname, "../pages", "home-super-usuario.html"));
+});
 
-// TODO: Agregar middleware de autenticación
+router.get("/login", async (req, res) => {
+    res.sendFile(path.join(__dirname, "../pages", "login.html"));
+});
 
-router.post("/auth", async (req, res) => {
+router.get("/logout", (req, res) => {
+    TokenManager.cerrarSesion(res);
+});
+
+router.post("/superusuarios-auth", async (req, res) => {
     await superUsuariosController.autenticarSuperUsuario(req, res);
 });
 
-router.get("/ingredientes/:id", async (req, res) => {
+router.post("/meseros-auth", async (req, res) => {
+    await meserosController.autenticarMesero(req, res);
+});
+
+router.get("/ingredientes/:id", TokenManager.validarToken, async (req, res) => {
     await ingredientesController.obtenerPorId(req, res);
 });
 
-router.get("/ingredientes", async (req, res) => {
+router.get("/ingredientes", TokenManager.validarToken, async (req, res) => {
     await ingredientesController.obtenerTodos(req, res);
 });
 
-router.post("/ingredientes", async (req, res) => {
+router.post("/ingredientes", TokenManager.validarToken, async (req, res) => {
     await ingredientesController.crear(req, res);
 });
 
-router.patch("/ingredientes/:id", async (req, res) => {
+router.patch("/ingredientes/:id", TokenManager.validarToken, async (req, res) => {
     await ingredientesController.actualizar(req, res);
 });
 
@@ -53,7 +59,7 @@ router.delete("/ingredientes/:id", async (req, res) => {
 
 //Direccionamiento entidad cocinero
 //Obtener todos los cocineros por id
-router.get("/cocineros/:id", async (req, res) => {
+router.get("/cocineros/:id", TokenManager.validarToken, async (req, res) => {
     await cocinerosController.obtenerPorIdCocineros(req, res);
 });
 
@@ -63,23 +69,23 @@ router.get("/cocineros", TokenManager.validarToken, async (req, res) => {
 });
 
 //Crear un cocinero
-router.post("/cocineros", async (req, res) => {
+router.post("/cocineros", TokenManager.validarToken, async (req, res) => {
     await cocinerosController.crearCocineros(req, res);
 });
 
 //Actualizar un cocinero
-router.patch("/cocineros/:id", async (req, res) => {
+router.patch("/cocineros/:id", TokenManager.validarToken, async (req, res) => {
     await cocinerosController.actualizarCocineros(req, res);
 });
 
 //Eliminar un cocinero
-router.delete("/cocineros/:id", async (req, res) => {
+router.delete("/cocineros/:id", TokenManager.validarToken, async (req, res) => {
     await cocinerosController.eliminarCocineros(req, res);
 });
 
 //Direccionamiento entidad mesero
 //Obtener todos los meseros por id
-router.get("/meseros/:id", async (req, res) => {
+router.get("/meseros/:id", TokenManager.validarToken, async (req, res) => {
     await meserosController.obtenerPorIdMeseros(req, res);
 });
 
@@ -89,23 +95,23 @@ router.get("/meseros", TokenManager.validarToken, async (req, res) => {
 });
 
 //Crear un mesero
-router.post("/meseros", async (req, res) => {
+router.post("/meseros", TokenManager.validarToken, async (req, res) => {
     await meserosController.crearMesero(req, res);
 });
 
 //Actualizar un mesero
-router.patch("/meseros/:id", async (req, res) => {
+router.patch("/meseros/:id", TokenManager.validarToken, async (req, res) => {
     await meserosController.actualizarMeseros(req, res);
 });
 
 //Eliminar un mesero
-router.delete("/meseros/:id", async (req, res) => {
+router.delete("/meseros/:id", TokenManager.validarToken, async (req, res) => {
     await meserosController.eliminarMesero(req, res);
 });
 
 //Direccionamiento entidad administrador
 //Obtener todos los administradores por id
-router.get("/administradores/:id", async (req, res) => {
+router.get("/administradores/:id", TokenManager.validarToken, async (req, res) => {
     await administradoresController.obtenerPorIdAdministradores(req, res);
 });
 //Obtener todos los administradores
@@ -114,83 +120,83 @@ router.get("/administradores", TokenManager.validarToken, async (req, res) => {
 });
 
 //Crear un administrador
-router.post("/administradores", async (req, res) => {
+router.post("/administradores", TokenManager.validarToken, async (req, res) => {
     await administradoresController.crearAdministradores(req, res);
 });
 
 //Actualizar un administrador
-router.patch("/administradores/:id", async (req, res) => {
+router.patch("/administradores/:id", TokenManager.validarToken, async (req, res) => {
     await administradoresController.actualizarAdministradores(req, res);
 });
 
 //Eliminar un administrador
-router.delete("/administradores/:id", async (req, res) => {
+router.delete("/administradores/:id", TokenManager.validarToken, async (req, res) => {
     await administradoresController.eliminarAdministradores(req, res);
 });
 
 //Direccionamiento entidad producto
 //Obtener todos los productos por id
-router.get("/productos/:id", async (req, res) => {
+router.get("/productos/:id", TokenManager.validarToken, async (req, res) => {
     await productosController.obtenerPorIdProductos(req, res);
 });
 //Obtener todos los productos
-router.get("/productos", async (req, res) => {
+router.get("/productos", TokenManager.validarToken, async (req, res) => {
     await productosController.obtenerTodosProductos(req, res);
 });
 //Crear un producto
-router.post("/productos", async (req, res) => {
+router.post("/productos", TokenManager.validarToken, async (req, res) => {
     await productosController.crearProductos(req, res);
 });
 //Actualizar un producto
-router.patch("/productos/:id", async (req, res) => {
+router.patch("/productos/:id", TokenManager.validarToken, async (req, res) => {
     await productosController.actualizarProductos(req, res);
 });
 //Eliminar un producto
-router.delete("/productos/:id", async (req, res) => {
+router.delete("/productos/:id", TokenManager.validarToken, async (req, res) => {
     await productosController.eliminarProductos(req, res);
 });
 module.exports = router;
 
 // Obtener una orden por id
-router.get("/ordenes/:id", async (req, res) => {
+router.get("/ordenes/:id", TokenManager.validarToken, async (req, res) => {
     await ordenesController.obtenerPorId(req, res);
 });
 
 // Obtener todas las ordenes
-router.get("/ordenes", async (req, res) => {
+router.get("/ordenes", TokenManager.validarToken, async (req, res) => {
     await ordenesController.obtenerTodos(req, res);
 });
 
 // Actualizar una orden
-router.patch("/ordenes/:id", async (req, res) => {
+router.patch("/ordenes/:id", TokenManager.validarToken, async (req, res) => {
     await ordenesController.actualizar(req, res);
 });
 
 // Eliminar una orden
-router.delete("/ordenes/:id", async (req, res) => {
+router.delete("/ordenes/:id", TokenManager.validarToken, async (req, res) => {
     await ordenesController.eliminar(req, res);
 });
 
 // Obtener un super usuario por id
-router.get("/superusuarios/:id", async (req, res) => {
+router.get("/superusuarios/:id", TokenManager.validarToken, async (req, res) => {
     await superUsuariosController.obtenerPorId(req, res);
 });
 
 // Obtener todos los super usuarios
-router.get("/superusuarios", async (req, res) => {
+router.get("/superusuarios", TokenManager.validarToken, async (req, res) => {
     await superUsuariosController.obtenerTodos(req, res);
 });
 
-router.post("/superusuarios", async (req, res) => {
+router.post("/superusuarios", TokenManager.validarToken, async (req, res) => {
     await superUsuariosController.crear(req, res);
 });
 
 // Actualizar un super usuario
-router.patch("/superusuarios/:id", async (req, res) => {
+router.patch("/superusuarios/:id", TokenManager.validarToken, async (req, res) => {
     await superUsuariosController.actualizar(req, res);
 });
 
 // Eliminar un super usuario
-router.delete("/superusuarios/:id", async (req, res) => {
+router.delete("/superusuarios/:id", TokenManager.validarToken, async (req, res) => {
     await superUsuariosController.eliminar(req, res);
 });
