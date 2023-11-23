@@ -14,6 +14,11 @@ module.exports = new EntitySchema({
             length: 30,
             nullable: false
         },
+        puesto: {
+            type: "varchar",
+            length: 20,
+            nullable: false
+        },
         contrasenia: {
             type: "varchar",
             length: 50,
