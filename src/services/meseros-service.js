@@ -58,7 +58,7 @@ class MeserosService{
         return await this.meseroRepository.remove(meseroGuardado);
     }
 
-    async autenticarSuperUsuario(mesero) {
+    async autenticarMesero(mesero) {
         return await this.meseroRepository.findOne({
             where: {
                 nombreUsuario: mesero.nombreUsuario,

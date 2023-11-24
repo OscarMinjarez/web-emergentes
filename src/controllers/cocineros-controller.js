@@ -1,3 +1,5 @@
+const TokenManager = require("../libs/utils/token-manager");
+const Cocinero = require("../models/cocinero");
 const CocineroService = require("../services/cocineros-service");
 
 class CocinerosController {
@@ -49,6 +51,26 @@ class CocinerosController {
             const id = req.params.id;
             const cocineroEliminado = await this.cocinerosService.eliminar(id);
             res.status(201).json(cocineroEliminado);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
+    }
+
+    async autenticarCocinero(req, res) {
+        try {
+            const { nombreUsuario, contrasenia } = req.body;
+            const cocinero = new Cocinero();
+            cocinero.nombreUsuario = nombreUsuario;
+            cocinero.contrasenia = contrasenia;
+            const cocineroAutenticado = await this.cocinerosService.autenticarCocinero(cocinero);
+            if (!cocineroAutenticado) {
+                return res.status(401).json({
+                    message: "No fue posible autenticare"
+                });
+            }
+            const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(cocineroAutenticado.contrasenia);
+            TokenManager.establecerCookie(res, tokenDeAcceso);
+            return res.json({ usuario: cocineroAutenticado, tokenDeAcceso });
         } catch (e) {
             res.status(500).json({ error: e.message });
         }

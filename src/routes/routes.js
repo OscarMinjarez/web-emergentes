@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const path = require("path");
 const router = new Router();
 const TokenManager = require("../libs/utils/token-manager");
 const IngredientesController = require("../controllers/ingredientes-controller");
@@ -15,14 +14,16 @@ const productosController = new ProductosController();
 const OrdenesController = require ("../controllers/ordenes-controller");
 const ordenesController = new OrdenesController();
 const SuperUsuariosController = require("../controllers/super_usuarios-controller");
+const VistaController = require("../controllers/vista-controller");
 const superUsuariosController= new SuperUsuariosController();
+const vistaController = new VistaController();
 
 router.get("/home", TokenManager.validarToken, async (req, res) => {
-    res.sendFile(path.join(__dirname, "../pages", "home-super-usuario.html"));
+    await vistaController.paginaHome(req, res);
 });
 
 router.get("/login", async (req, res) => {
-    res.sendFile(path.join(__dirname, "../pages", "login.html"));
+    await vistaController.paginaLogin(req, res);
 });
 
 router.get("/logout", (req, res) => {
@@ -35,6 +36,14 @@ router.post("/superusuarios-auth", async (req, res) => {
 
 router.post("/meseros-auth", async (req, res) => {
     await meserosController.autenticarMesero(req, res);
+});
+
+router.post("/administradores-auth", async (req, res) => {
+    await administradoresController.autenticarAdministrador(req, res);
+});
+
+router.post("/cocineros-auth", async (req, res) => {
+    await cocinerosController.autenticarCocinero(req, res);
 });
 
 router.get("/ingredientes/:id", TokenManager.validarToken, async (req, res) => {

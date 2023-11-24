@@ -65,11 +65,13 @@ class SuperUsuariosController {
             superUsuario.contrasenia = contrasenia;
             const superUsuarioAutenticado = await this.superUsuariosService.autenticarSuperUsuario(superUsuario);
             if (!superUsuarioAutenticado) {
-                return res.redirect("/login");
+                return res.status(401).json({
+                    message: "No fue posible autenticare"
+                });
             }
             const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(superUsuarioAutenticado.contrasenia);
             TokenManager.establecerCookie(res, tokenDeAcceso);
-            res.redirect("/home");
+            return res.json({ superUsuarioAutenticado, tokenDeAcceso });
         } catch (e) {
             res.status(500).json({ error: e.message });
         }

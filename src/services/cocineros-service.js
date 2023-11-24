@@ -57,6 +57,15 @@ class CocinerosService {
 
         return await this.cocineroRepository.remove(cocineroGuardado);
     }
+
+    async autenticarCocinero(cocinero) {
+        return await this.cocineroRepository.findOne({
+            where: {
+                nombreUsuario: cocinero.nombreUsuario,
+                contrasenia: cocinero.contrasenia
+            }
+        });
+    }
 }
 
 module.exports = CocinerosService;

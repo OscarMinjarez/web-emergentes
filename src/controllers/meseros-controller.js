@@ -62,13 +62,15 @@ class MeserosController {
             const mesero = new Mesero();
             mesero.nombreUsuario = nombreUsuario;
             mesero.contrasenia = contrasenia;
-            const meseroAutenticado = await this.meserosService.autenticarSuperUsuario(mesero);
+            const meseroAutenticado = await this.meserosService.autenticarMesero(mesero);
             if (!meseroAutenticado) {
-                return res.redirect("/login");
+                return res.status(401).json({
+                    message: "No fue posible autenticare"
+                });
             }
             const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(meseroAutenticado.contrasenia);
             TokenManager.establecerCookie(res, tokenDeAcceso);
-            res.redirect("/home");
+            return res.json({ usuario: meseroAutenticado, tokenDeAcceso });
         } catch (e) {
             res.status(500).json({ error: e.message });
         }

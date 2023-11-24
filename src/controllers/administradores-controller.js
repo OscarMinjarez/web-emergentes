@@ -1,3 +1,4 @@
+const Administrador = require("../models/administrador");
 const AdministradoresService = require("../services/administradores-service");
 
 class AdministradoresController {
@@ -49,6 +50,26 @@ class AdministradoresController {
             const id = req.params.id;
             const administradorEliminado = this.administradoresService.eliminarAdministradores(id);
             res.status(201).json(administradorEliminado);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
+    }
+
+    async autenticarAdministrador(req, res) {
+        try {
+            const { nombreUsuario, contrasenia } = req.body;
+            const administrador = new Administrador();
+            administrador.nombreUsuario = nombreUsuario;
+            administrador.contrasenia = contrasenia;
+            const administradorAutenticado = await this.administradoresService.autenticarAdministrador(administrador);
+            if (!administradorAutenticado) {
+                return res.status(401).json({
+                    message: "No fue posible autenticare"
+                });
+            }
+            const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(administradorAutenticado.contrasenia);
+            TokenManager.establecerCookie(res, tokenDeAcceso);
+            return res.json({ usuario: administradorAutenticado, tokenDeAcceso });
         } catch (e) {
             res.status(500).json({ error: e.message });
         }

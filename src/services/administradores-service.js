@@ -1,3 +1,4 @@
+const TokenManager = require("../libs/utils/token-manager");
 const dataSource = require("../libs/bd_config");
 const Administrador = require("../models/administrador");
 
@@ -56,6 +57,15 @@ class AdministradoresService{
         }
 
         return await this.administradorRepository.remove(administradorGuardado);
+    }
+
+    async autenticarAdministrador(administrador) {
+        return await this.administradorRepository.findOne({
+            where: {
+                nombreUsuario: administrador.nombreUsuario,
+                contrasenia: administrador.contrasenia
+            }
+        });
     }
 }
 
