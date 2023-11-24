@@ -4,21 +4,20 @@ class VistaController {
     constructor() {
     }
 
-    async paginaHome(req, res) {
-        const usuario = req.usuario;
-        if (!usuario.puesto) {
-            return res.sendFile(path.join(__dirname, "../pages", "home-super-usuario.html"));
-        }
-        switch (usuario.puesto.toLowerCase()) {
-            case "administrador":
-                return res.sendFile(path.join(__dirname, "../pages", "home-administrador.html"));
-            case "cocinero":
-                return res.sendFile(path.join(__dirname, "../pages", "home-cocinero.html"));
-            case "mesero":
-                return res.sendFile(path.join(__dirname, "../pages", "home-mesero.html"));
-            default:
-                return res.sendFile(path.join(__dirname, "../pages", "home-super-usuario.html"));
-        }
+    async paginaHomeSuperUsuario(req, res) {
+        return res.sendFile(path.join(__dirname, "../pages", "home-super-usuario.html"));
+    }
+    
+    async paginaHomeAdministrador(req, res) {
+        return res.sendFile(path.join(__dirname, "../pages", "home-administrador.html"));
+    }
+
+    async paginaHomeCocinero(req, res) {
+        return res.sendFile(path.join(__dirname, "../pages", "home-cocinero.html"));
+    }
+    
+    async paginaHomeMesero(req, res) {
+        return res.sendFile(path.join(__dirname, "../pages", "home-mesero.html"));
     }
 
     async paginaLogin(req, res) {

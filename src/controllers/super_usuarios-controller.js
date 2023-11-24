@@ -71,7 +71,7 @@ class SuperUsuariosController {
             }
             const tokenDeAcceso = await TokenManager.generarTokenDeAcceso(superUsuarioAutenticado.contrasenia);
             TokenManager.establecerCookie(res, tokenDeAcceso);
-            return res.json({ superUsuarioAutenticado, tokenDeAcceso });
+            return res.json({ usuario: superUsuarioAutenticado, tokenDeAcceso });
         } catch (e) {
             res.status(500).json({ error: e.message });
         }

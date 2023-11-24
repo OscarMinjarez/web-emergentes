@@ -18,8 +18,20 @@ const VistaController = require("../controllers/vista-controller");
 const superUsuariosController= new SuperUsuariosController();
 const vistaController = new VistaController();
 
-router.get("/home", TokenManager.validarToken, async (req, res) => {
-    await vistaController.paginaHome(req, res);
+router.get("/superusuario/home", TokenManager.validarToken, async (req, res) => {
+    await vistaController.paginaHomeSuperUsuario(req, res);
+});
+
+router.get("/administrador/home", TokenManager.validarToken, async (req, res) => {
+    await vistaController.paginaHomeAdministrador(req, res);
+});
+
+router.get("/cocinero/home", TokenManager.validarToken, async (req, res) => {
+    await vistaController.paginaHomeCocinero(req, res);
+});
+
+router.get("/mesero/home", TokenManager.validarToken, async (req, res) => {
+    await vistaController.paginaHomeMesero(req, res);
 });
 
 router.get("/login", async (req, res) => {

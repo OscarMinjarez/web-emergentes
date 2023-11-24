@@ -93,7 +93,7 @@ const autenticarMesero = async () => {
             mostrarAlerta("Credenciales inválidas");
             return;
         }
-        paginaHome(paginaHome);
+        paginaHome(data);
     } catch (e) {
         console.log(e);
     }
@@ -160,6 +160,7 @@ const autenticarCocinero = async () => {
 }
 
 const paginaHome = async (data) => {
+    let response;
     const opciones = {
         method: "GET",
         headers: {
@@ -168,12 +169,21 @@ const paginaHome = async (data) => {
         }
     };
     try {
-        const response = await fetch("/home", opciones);
-        if (!response.ok) {
-            console.error(`Error al cargar /home. Código de estado: ${response.status}`);
-            return;
-        }       
-        window.location.href = "/home";
+        if (data.usuario.puesto) {
+            response = await fetch(`/${data.usuario.puesto.toLowerCase()}/home`)
+            if (!response.ok) {
+                console.error(`Error al cargar /${data.usuario.puesto.toLowerCase()}/home. Código de estado: ${response.status}`);
+                return;
+            }
+            window.location.href = `/${data.usuario.puesto.toLowerCase()}/home`;
+        } else {
+            response = await fetch("/superusuario/home", opciones);
+            if (!response.ok) {
+                console.error(`Error al cargar /superusuario/home. Código de estado: ${response.status}`);
+                return;
+            }
+            window.location.href = "/superusuario/home";
+        }
     } catch (error) {
         console.error(error);
     }
