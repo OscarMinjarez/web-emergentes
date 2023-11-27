@@ -7,19 +7,19 @@ class AdministradoresService{
         this.administradorRepository = dataSource.getRepository("Administrador");
     }
 
-      async obtenerPorIdAdministradores(id) {
+      async obtenerPorId(id) {
         return await this.administradorRepository.findOne({
             where: { id }
         });
     }
 
-    async obtenerTodosAdministradores() {
+    async obtenerTodos() {
         return await this.administradorRepository.find({
             select: ["id", "nombreUsuario", "puesto", "contrasenia"]
         });
     }
 
-    async crearAdministradores(administrador) {
+    async crear(administrador) {
         if (!administrador) {
             throw Error("No se puede agregar un administrador");
         }
@@ -37,8 +37,8 @@ class AdministradoresService{
         return await this.administradorRepository.save(nuevoAdministrador);
     }
 
-    async actualizarAdministrdores(id, nuevoAdministrador) {
-        const administradorGuardado = await this.obtenerPorIdAdministradores(id);
+    async actualizar(id, nuevoAdministrador) {
+        const administradorGuardado = await this.obtenerPorId(id);
 
         if (!administradorGuardado) {
             throw Error("No existe el administrador a actualizar");
@@ -49,8 +49,8 @@ class AdministradoresService{
         return await this.administradorRepository.save(administradorGuardado);
     }
 
-    async eliminarAdministradores(id) {
-        const administradorGuardado = await this.obtenerPorIdAdministradores(id);
+    async eliminar(id) {
+        const administradorGuardado = await this.obtenerPorId(id);
 
         if (!administradorGuardado) {
             throw Error("No existe el administrador a eliminar");

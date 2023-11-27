@@ -23,6 +23,24 @@
         </div>
     </div>
 
+    <div class="modal fade" id="confirmar-eliminar-modal" tabindex="-1" aria-labelledby="confirmar-eliminar-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmar-eliminar">Eliminar usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Seguro que quieres eliminar al usuario? Si lo haces ya no podrás recuperarlo.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelar-eliminar-btn">Cancelar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="confirmar-eliminar-btn">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mt-5 p-5 border rounded visually-hidden" id="formulario">
         <div class="alert alert-danger text-center visually-hidden" id="alert" role="alert"></div>
         <div class="alert alert-success text-center visually-hidden" id="message" role="message"></div>
@@ -64,5 +82,7 @@
     <script src="/js/cargar-usuarios.js"></script>
     <script src="/js/cerrar-sesion.js"></script>
     <script src="/js/agregar-usuario-form.js"></script>
+    <script src="/js/eliminar-usuario.js"></script>
+    <!-- <script src="/js/editar-usuario.js"></script> -->
 </body>
 </html>

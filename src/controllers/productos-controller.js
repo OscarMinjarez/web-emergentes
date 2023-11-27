@@ -4,7 +4,7 @@ class ProductosController{
     constructor() {
         this.productosService = new ProductosService();
       }
-      async obtenerPorIdProductos(req, res) {
+      async obtenerPorId(req, res) {
         try {
             const id = req.params.id;
             const producto = await this.productosService.obtenerPorIdProductos(id);
@@ -13,7 +13,7 @@ class ProductosController{
             res.status(500).json({ error: e.message });
         }
        }
-       async obtenerTodosProductos(req, res) {
+       async obtenerTodos(req, res) {
         try {
             const productos = await this.productosService.obtenerTodosProductos();
             res.status(200).json(productos);
@@ -21,7 +21,7 @@ class ProductosController{
             res.status(500).json({ error: e.message });
         }
        }
-       async crearProductos(req, res) {
+       async crear(req, res) {
         try {
             const producto = req.body;
             const nuevoProducto = this.productosService.crearProductos(producto);
@@ -30,7 +30,7 @@ class ProductosController{
             res.status(400).json({ error: e.message });
         }
       }
-      async actualizarProductos(req, res) {
+      async actualizar(req, res) {
         try {
             const id = req.params.id;
             const productoActualizado = this.productosService.actualizarProductos(id, req.body);
@@ -39,7 +39,7 @@ class ProductosController{
             res.status(400).json({ error: e.message });
         }
     }
-    async eliminarProductos(req, res) {
+    async eliminar(req, res) {
         try {
             const id = req.params.id;
             const productoEliminado = this.productosService.eliminarProductos(id);

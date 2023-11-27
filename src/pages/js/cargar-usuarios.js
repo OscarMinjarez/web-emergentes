@@ -50,10 +50,11 @@ const mostrarUsuariosEnTabla = async () => {
 
     usuarios.forEach(usuario => {
         const fila = document.createElement('tr');
+        fila.setAttribute("user-id", `${usuario.puesto}-${usuario.id}`);
 
         const celdaUsuario = document.createElement('td');
         celdaUsuario.textContent = usuario.nombreUsuario;
-        celdaUsuario.classList.add("align-middle");
+        celdaUsuario.classList.add("align-middle", "nombreUsuario");
         fila.appendChild(celdaUsuario);
 
         const celdaPuesto = document.createElement('td');
@@ -64,29 +65,23 @@ const mostrarUsuariosEnTabla = async () => {
         const celdaOperacion = document.createElement('td');
         celdaOperacion.classList.add('text-end');
 
-        const botonEditar = document.createElement('button');
-        botonEditar.classList.add('btn', 'btn-primary', 'me-2');
-        botonEditar.innerHTML = '<i class="fa-solid fa-pen"></i>';
-        botonEditar.addEventListener('click', () => editarUsuario(usuario.id));
-        celdaOperacion.appendChild(botonEditar);
+        // const botonEditar = document.createElement('button');
+        // botonEditar.classList.add('btn', 'btn-primary', 'me-2', "editar");
+        // botonEditar.innerHTML = '<i class="fa-solid fa-pen"></i>';
+        // botonEditar.setAttribute('data-id', `${usuario.puesto}-${usuario.id}`);
+        // botonEditar.addEventListener('click', async () => await editarUsuario(`${usuario.puesto}-${usuario.id}`));
+        // celdaOperacion.appendChild(botonEditar);
 
         const botonEliminar = document.createElement('button');
-        botonEliminar.classList.add('btn', 'btn-danger');
+        botonEliminar.classList.add('btn', 'btn-danger', "eliminar");
         botonEliminar.innerHTML = '<i class="fa-solid fa-trash"></i>';
-        botonEliminar.addEventListener('click', () => eliminarUsuario(usuario.id));
+        botonEliminar.setAttribute('data-id', `${usuario.puesto}-${usuario.id}`);
+        botonEliminar.addEventListener('click', () => mostrarConfirmarEliminarModal(`${usuario.puesto}-${usuario.id}`));
         celdaOperacion.appendChild(botonEliminar);
 
         fila.appendChild(celdaOperacion);
         tabla.appendChild(fila);
     });
-};
-
-const editarUsuario = (id) => {
-    console.log(`Editar usuario con ID: ${id}`);
-};
-
-const eliminarUsuario = (id) => {
-    console.log(`Eliminar usuario con ID: ${id}`);
 };
 
 window.onload = async () => {

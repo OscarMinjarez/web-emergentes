@@ -10,7 +10,7 @@ class AdministradoresController {
     async obtenerPorIdAdministradores(req, res) {
         try {
             const id = req.params.id;
-            const administrador = await this.administradoresService.obtenerPorIdAdministradores(id);
+            const administrador = await this.administradoresService.obtenerPorId(id);
             res.status(200).json(administrador);
         } catch (e) {
             res.status(500).json({ error: e.message });
@@ -19,7 +19,7 @@ class AdministradoresController {
 
     async obtenerTodos(req, res) {
         try {
-            const administradores = await this.administradoresService.obtenerTodosAdministradores();
+            const administradores = await this.administradoresService.obtenerTodos();
             res.status(200).json(administradores);
         } catch (e) {
             res.status(500).json({ error: e.message });
@@ -29,27 +29,27 @@ class AdministradoresController {
     async crear(req, res) {
         try {
             const administrador = req.body;
-            const nuevoAdministrador = this.administradoresService.crearAdministradores(administrador);
+            const nuevoAdministrador = await this.administradoresService.crear(administrador);
             res.status(201).json(nuevoAdministrador);
         } catch (e) {
             res.status(400).json({ error: e.message });
         }
     }
     
-    async actualizarAdministradores(req, res) {
+    async actualizar(req, res) {
         try {
             const id = req.params.id;
-            const administradorActualizado = this.administradoresService.actualizarAdministrdores(id, req.body);
+            const administradorActualizado = await this.administradoresService.actualizar(id, req.body);
             res.status(201).json(administradorActualizado);
         } catch (e) {
             res.status(400).json({ error: e.message });
         }
     }
 
-    async eliminarAdministradores(req, res) {
+    async eliminar(req, res) {
         try {
             const id = req.params.id;
-            const administradorEliminado = this.administradoresService.eliminarAdministradores(id);
+            const administradorEliminado = await this.administradoresService.eliminar(id);
             res.status(201).json(administradorEliminado);
         } catch (e) {
             res.status(500).json({ error: e.message });

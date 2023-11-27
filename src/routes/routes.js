@@ -81,7 +81,7 @@ router.delete("/ingredientes/:id", async (req, res) => {
 //Direccionamiento entidad cocinero
 //Obtener todos los cocineros por id
 router.get("/cocineros/:id", TokenManager.validarToken, async (req, res) => {
-    await cocinerosController.obtenerPorIdCocineros(req, res);
+    await cocinerosController.obtenerPorId(req, res);
 });
 
 //Obtener todos los cocineros
@@ -96,18 +96,18 @@ router.post("/cocineros", TokenManager.validarToken, async (req, res) => {
 
 //Actualizar un cocinero
 router.patch("/cocineros/:id", TokenManager.validarToken, async (req, res) => {
-    await cocinerosController.actualizarCocineros(req, res);
+    await cocinerosController.actualizar(req, res);
 });
 
 //Eliminar un cocinero
 router.delete("/cocineros/:id", TokenManager.validarToken, async (req, res) => {
-    await cocinerosController.eliminarCocineros(req, res);
+    await cocinerosController.eliminar(req, res);
 });
 
 //Direccionamiento entidad mesero
 //Obtener todos los meseros por id
 router.get("/meseros/:id", TokenManager.validarToken, async (req, res) => {
-    await meserosController.obtenerPorIdMeseros(req, res);
+    await meserosController.obtenerPorId(req, res);
 });
 
 //Obtener todos los meseros
@@ -122,12 +122,12 @@ router.post("/meseros", TokenManager.validarToken, async (req, res) => {
 
 //Actualizar un mesero
 router.patch("/meseros/:id", TokenManager.validarToken, async (req, res) => {
-    await meserosController.actualizarMeseros(req, res);
+    await meserosController.actualizar(req, res);
 });
 
 //Eliminar un mesero
 router.delete("/meseros/:id", TokenManager.validarToken, async (req, res) => {
-    await meserosController.eliminarMesero(req, res);
+    await meserosController.eliminar(req, res);
 });
 
 //Direccionamiento entidad administrador
@@ -147,34 +147,34 @@ router.post("/administradores", TokenManager.validarToken, async (req, res) => {
 
 //Actualizar un administrador
 router.patch("/administradores/:id", TokenManager.validarToken, async (req, res) => {
-    await administradoresController.actualizarAdministradores(req, res);
+    await administradoresController.actualizar(req, res);
 });
 
 //Eliminar un administrador
 router.delete("/administradores/:id", TokenManager.validarToken, async (req, res) => {
-    await administradoresController.eliminarAdministradores(req, res);
+    await administradoresController.eliminar(req, res);
 });
 
 //Direccionamiento entidad producto
 //Obtener todos los productos por id
 router.get("/productos/:id", TokenManager.validarToken, async (req, res) => {
-    await productosController.obtenerPorIdProductos(req, res);
+    await productosController.obtenerPorId(req, res);
 });
 //Obtener todos los productos
 router.get("/productos", TokenManager.validarToken, async (req, res) => {
-    await productosController.obtenerTodosProductos(req, res);
+    await productosController.obtenerTodos(req, res);
 });
 //Crear un producto
 router.post("/productos", TokenManager.validarToken, async (req, res) => {
-    await productosController.crearProductos(req, res);
+    await productosController.crear(req, res);
 });
 //Actualizar un producto
 router.patch("/productos/:id", TokenManager.validarToken, async (req, res) => {
-    await productosController.actualizarProductos(req, res);
+    await productosController.actualizar(req, res);
 });
 //Eliminar un producto
 router.delete("/productos/:id", TokenManager.validarToken, async (req, res) => {
-    await productosController.eliminarProductos(req, res);
+    await productosController.eliminar(req, res);
 });
 module.exports = router;
 
