@@ -78,16 +78,14 @@ const mostrarUsuariosEnTabla = async () => {
 
         fila.appendChild(celdaOperacion);
         tabla.appendChild(fila);
-    });6
+    });
 };
 
 const editarUsuario = (id) => {
-    // Lógica para editar el usuario con el ID proporcionado
     console.log(`Editar usuario con ID: ${id}`);
 };
 
 const eliminarUsuario = (id) => {
-    // Lógica para eliminar el usuario con el ID proporcionado
     console.log(`Eliminar usuario con ID: ${id}`);
 };
 

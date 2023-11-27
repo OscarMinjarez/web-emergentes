@@ -1,3 +1,4 @@
+const TokenManager = require("../libs/utils/token-manager");
 const Administrador = require("../models/administrador");
 const AdministradoresService = require("../services/administradores-service");
 
@@ -25,7 +26,7 @@ class AdministradoresController {
         }
     }
 
-    async crearAdministradores(req, res) {
+    async crear(req, res) {
         try {
             const administrador = req.body;
             const nuevoAdministrador = this.administradoresService.crearAdministradores(administrador);

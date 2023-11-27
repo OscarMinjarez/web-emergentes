@@ -1,5 +1,5 @@
 class Administrador{
-    constructor(id, nombreUsuario, contrasenia, superUsuarioId, puest) {
+    constructor(id, nombreUsuario, contrasenia, superUsuarioId, puesto) {
            this.id = id;
            this.nombreUsuario=nombreUsuario;
            this.contrasenia=contrasenia;

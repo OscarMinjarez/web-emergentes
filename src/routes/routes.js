@@ -91,7 +91,7 @@ router.get("/cocineros", TokenManager.validarToken, async (req, res) => {
 
 //Crear un cocinero
 router.post("/cocineros", TokenManager.validarToken, async (req, res) => {
-    await cocinerosController.crearCocineros(req, res);
+    await cocinerosController.crear(req, res);
 });
 
 //Actualizar un cocinero
@@ -117,7 +117,7 @@ router.get("/meseros", TokenManager.validarToken, async (req, res) => {
 
 //Crear un mesero
 router.post("/meseros", TokenManager.validarToken, async (req, res) => {
-    await meserosController.crearMesero(req, res);
+    await meserosController.crear(req, res);
 });
 
 //Actualizar un mesero
@@ -142,7 +142,7 @@ router.get("/administradores", TokenManager.validarToken, async (req, res) => {
 
 //Crear un administrador
 router.post("/administradores", TokenManager.validarToken, async (req, res) => {
-    await administradoresController.crearAdministradores(req, res);
+    await administradoresController.crear(req, res);
 });
 
 //Actualizar un administrador
