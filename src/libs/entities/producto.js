@@ -17,9 +17,19 @@ module.exports = new EntitySchema({
     },
     relations: {
         ingredientes: {
-            type: "one-to-many",
+            type: "many-to-many",
             target: "Ingrediente",
-            inverseSide: "producto"
+            joinTable: {
+                name: "producto_ingredientes",
+                joinColumn: {
+                    name: "productoId",
+                    referencedColumnName: "id"
+                },
+                inverseJoinColumn: {
+                    name: "ingredienteId",
+                    referencedColumnName: "id"
+                }
+            }
         },
         orden: {
             type: "many-to-one",

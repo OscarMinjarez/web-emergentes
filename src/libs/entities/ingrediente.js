@@ -18,11 +18,5 @@ module.exports = new EntitySchema({
             type: "int",
             nullable: false
         }
-    },
-    relations: {
-        producto: {
-            type: "many-to-one",
-            target: "Producto"
-        }
     }
 });

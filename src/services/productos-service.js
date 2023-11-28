@@ -6,19 +6,22 @@ class ProductosService{
         this.productoRepository = dataSource.getRepository("Producto");
     }
 
-    async obtenerPorIdProductos(id) {
+    async obtenerPorId(id) {
         return await this.productoRepository.findOne({
             where: { id }
         });
     }
 
-    async obtenerTodosProductos() {
+    async obtenerTodos() {
         return await this.productoRepository.find({
-            select: ["id", "nombreProducto"]
+            select: ["id", "nombreProducto"],
+            relations: {
+                ingredientes: true
+            }
         });
     }
 
-    async crearProductos(producto) {
+    async crear(producto) {
         if (!producto) {
             throw Error("No se puede agregar un producto");
         }
@@ -32,8 +35,8 @@ class ProductosService{
         return await this.productoRepository.save(nuevoProducto);
     }
 
-    async actualizarProductos(id, nuevoProducto) {
-        const productoGuardado = await this.obtenerPorIdProductos(id);
+    async actualizar(id, nuevoProducto) {
+        const productoGuardado = await this.obtenerPorId(id);
 
         if (!productoGuardado) {
             throw Error("No existe el producto a actualizar");
@@ -44,8 +47,8 @@ class ProductosService{
         return await this.productoRepository.save(productoGuardado);
     }
 
-    async eliminarProductos(id) {
-        const productoGuardado = await this.obtenerPorIdProductos(id);
+    async eliminar(id) {
+        const productoGuardado = await this.obtenerPorId(id);
 
         if (!productoGuardado) {
             throw Error("No existe el producto a eliminar");

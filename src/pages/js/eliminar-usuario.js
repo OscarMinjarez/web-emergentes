@@ -25,7 +25,6 @@ const eliminarFila = (usuario) => {
     const elementoEliminar = document.querySelector(`tr[user-id="${usuario[0]}-${usuario[1]}"]`);
     if (elementoEliminar) {
         elementoEliminar.remove();
-        console.log(`Usuario con user-id ${usuario[1]} eliminado del HTML.`);
     } else {
         console.log(`No se encontró ningún usuario con user-id ${usuario[1]}.`);
     }

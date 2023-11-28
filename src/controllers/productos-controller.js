@@ -7,7 +7,7 @@ class ProductosController{
       async obtenerPorId(req, res) {
         try {
             const id = req.params.id;
-            const producto = await this.productosService.obtenerPorIdProductos(id);
+            const producto = await this.productosService.obtenerPorId(id);
             res.status(200).json(producto);
         } catch (e) {
             res.status(500).json({ error: e.message });
@@ -15,7 +15,7 @@ class ProductosController{
        }
        async obtenerTodos(req, res) {
         try {
-            const productos = await this.productosService.obtenerTodosProductos();
+            const productos = await this.productosService.obtenerTodos();
             res.status(200).json(productos);
         } catch (e) {
             res.status(500).json({ error: e.message });
@@ -24,7 +24,7 @@ class ProductosController{
        async crear(req, res) {
         try {
             const producto = req.body;
-            const nuevoProducto = this.productosService.crearProductos(producto);
+            const nuevoProducto = await this.productosService.crear(producto);
             res.status(201).json(nuevoProducto);
         } catch (e) {
             res.status(400).json({ error: e.message });
@@ -33,7 +33,7 @@ class ProductosController{
       async actualizar(req, res) {
         try {
             const id = req.params.id;
-            const productoActualizado = this.productosService.actualizarProductos(id, req.body);
+            const productoActualizado = await this.productosService.actualizar(id, req.body);
             res.status(201).json(productoActualizado);
         } catch (e) {
             res.status(400).json({ error: e.message });
@@ -42,7 +42,7 @@ class ProductosController{
     async eliminar(req, res) {
         try {
             const id = req.params.id;
-            const productoEliminado = this.productosService.eliminarProductos(id);
+            const productoEliminado = await this.productosService.eliminar(id);
             res.status(201).json(productoEliminado);
         } catch (e) {
             res.status(500).json({ error: e.message });
