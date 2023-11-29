@@ -22,6 +22,7 @@ const obtenerDatosIngrediente = () => {
 const obtenerDatosProducto = () => {
     const nombreProducto = document.getElementById("nombreProducto").value;
     const ingredientesProducto = document.getElementById("ingredientesProducto");
+    const costo = document.getElementById("costo").value;
     const ingredientes = [];
     for (let i = 0; i < ingredientesProducto.options.length; i++) {
         if (ingredientesProducto.options[i].selected) {
@@ -31,6 +32,7 @@ const obtenerDatosProducto = () => {
     }
     return {
         nombreProducto,
+        costo,
         ingredientes
     };
 };
@@ -126,6 +128,9 @@ const agregarFilaProducto = (producto) => {
     const columnaNombre = document.createElement("td");
     columnaNombre.textContent = producto.nombreProducto;
     fila.appendChild(columnaNombre);
+    const columnaCosto = document.createElement("td");
+    columnaCosto.textContent = "$" + producto.costo;
+    fila.appendChild(columnaCosto);
     const columnaIngredientes = document.createElement("td");
     if (producto.ingredientes.length > 0) {
         const nombresIngredientes = producto.ingredientes.map(ingrediente => ingrediente.nombre);

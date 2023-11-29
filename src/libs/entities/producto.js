@@ -13,6 +13,10 @@ module.exports = new EntitySchema({
             type: "varchar",
             length: 50,
             nullable: false
+        },
+        costo: {
+            type: "int",
+            nullable: false
         }
     },
     relations: {
@@ -20,7 +24,7 @@ module.exports = new EntitySchema({
             type: "many-to-many",
             target: "Ingrediente",
             joinTable: {
-                name: "producto_ingredientes",
+                name: "productos_ingredientes",
                 joinColumn: {
                     name: "productoId",
                     referencedColumnName: "id"
@@ -30,10 +34,6 @@ module.exports = new EntitySchema({
                     referencedColumnName: "id"
                 }
             }
-        },
-        orden: {
-            type: "many-to-one",
-            target: "Orden"
         },
         administrador: {
             type: "many-to-one",

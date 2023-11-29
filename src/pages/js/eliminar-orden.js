@@ -1,13 +1,13 @@
-const eliminarFilaProducto = (idProducto) => {
-    const filaProducto = document.querySelector(`tr[data-id-producto="${idProducto}"]`);
+const eliminarFilaOrden = (idOrden) => {
+    const filaProducto = document.querySelector(`tr[data-id-orden="${idOrden}"]`);
     if (filaProducto) {
         filaProducto.remove();
     } else {
-        console.error("Error: No se encontró la fila del producto para eliminar.");
+        console.error("Error: No se encontró la fila de la orden para eliminar.");
     }
 };
 
-const eliminarProducto = async (idProducto) => {
+const eliminarOrden = async (idOrden) => {
     const opciones = {
         method: "DELETE",
         headers: {
@@ -15,10 +15,10 @@ const eliminarProducto = async (idProducto) => {
         }
     };
     try {
-        const response = await fetch(`/productos/${idProducto}`, opciones);
+        const response = await fetch(`/ordenes/${idOrden}`, opciones);
         if (response.ok) {
             console.log(await response.json());
-            eliminarFilaOrden(idProducto);
+            eliminarFilaOrden(idOrden);
         }
     } catch (e) {
         console.log(e);

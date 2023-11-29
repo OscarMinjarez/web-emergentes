@@ -1,7 +1,11 @@
 class Orden{
-    constructor(id, numeroOrden, idMesero, idCocinero) {
+    constructor(id, nombreCliente, numeroTelefono, productos, total, estatus, idMesero, idCocinero) {
            this.id = id;
-           this.numeroOrden = numeroOrden;
+           this.nombreCliente = nombreCliente;
+           this.numeroTelefono =  numeroTelefono;
+           this.productos = productos;
+           this.total = total;
+           this.estatus = estatus;
            this.idMesero = idMesero;
            this.idCocinero = idCocinero;
        }

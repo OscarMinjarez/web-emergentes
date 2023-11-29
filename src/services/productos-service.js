@@ -14,7 +14,7 @@ class ProductosService{
 
     async obtenerTodos() {
         return await this.productoRepository.find({
-            select: ["id", "nombreProducto"],
+            select: ["id", "nombreProducto", "costo"],
             relations: {
                 ingredientes: true
             }

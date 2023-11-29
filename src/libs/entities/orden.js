@@ -9,16 +9,41 @@ module.exports = new EntitySchema({
             type: "int",
             generated: true
         },
-        numeroOrden: {
+        nombreCliente: {
+            type: "varchar",
+            length: 50,
+            nullable: false
+        },
+        numeroTelefono: {
+            type: "varchar",
+            length: 10,
+            nullable: false
+        },
+        total: {
             type: "int",
+            nullable: false
+        },
+        estatus: {
+            type: "varchar",
+            length: 25,
             nullable: false
         }
     },
     relations: {
         productos: {
-            type: "one-to-many",
+            type: "many-to-many",
             target: "Producto",
-            inverseSide: "orden"
+            joinTable: {
+                name: "ordenes_productos",
+                joinColumn: {
+                    name: "orderId",
+                    referencedColumnName: "id"
+                },
+                inverseJoinColumn: {
+                    name: "productoId",
+                    referencedColumnName: "id"
+                }
+            }
         },
         mesero: {
             type: "many-to-one",

@@ -47,6 +47,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Nombre del Producto</th>
+                        <th scope="col">Costo</th>
                         <th scope="col">Ingredientes</th>
                         <th scope="col">Acciones</th>
                     </tr>
@@ -98,6 +99,10 @@
                             <label for="ingredientesProducto" class="form-label">Ingredientes</label>
                             <select multiple class="form-select" id="ingredientesProducto" required>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="costo" class="form-label">Costo</label>
+                            <input type="text" class="form-control" id="costo" name="costo">
                         </div>
                         <button type="button" id="agregar-producto-btn" class="btn btn-success">Agregar</button>
                     </form>

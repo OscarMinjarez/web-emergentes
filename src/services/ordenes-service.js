@@ -15,16 +15,16 @@ class OrdenesService {
 
     async obtenerTodos() {
         return await this.ordenRepository.find({
-            select: ["id", "numeroOrden", "idMesero", "idCocinero"]
+            select: ["id", "nombreCliente", "numeroTelefono", "total", "estatus"],
+            relations: {
+                productos: true
+            }
         });
     }
 
     async crear(orden) {
         if (!orden) {
             throw Error("No se puede agregar una orden");
-        }
-        if (!orden.numeroOrden) {
-            throw Error("No se puede crear una orden sin un número de orden");
         }
 
         const nuevaOrden = new Orden();

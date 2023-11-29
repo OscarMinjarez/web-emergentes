@@ -183,6 +183,10 @@ router.get("/ordenes/:id", TokenManager.validarToken, async (req, res) => {
     await ordenesController.obtenerPorId(req, res);
 });
 
+router.post("/ordenes", TokenManager.validarToken, async (req, res) => {
+    await ordenesController.crear(req, res);
+});
+
 // Obtener todas las ordenes
 router.get("/ordenes", TokenManager.validarToken, async (req, res) => {
     await ordenesController.obtenerTodos(req, res);
