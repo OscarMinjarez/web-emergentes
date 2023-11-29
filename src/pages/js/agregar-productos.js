@@ -1,6 +1,40 @@
 const agregarIngredienteBtn = document.getElementById("agregar-ingrediente-btn");
 const agregarProductoBtn = document.getElementById("agregar-producto-btn");
 const tablaProductos = document.getElementById("tabla-productos-body");
+const alertIngrediente = document.getElementById("alert-ingrediente");
+const messageIngrediente = document.getElementById("message-ingrediente");
+const alertProducto = document.getElementById("alert-producto");
+const messageProducto = document.getElementById("message-producto");
+
+const mostrarAlertaProducto = (mensaje) => {
+    alertProducto.innerText = mensaje;
+    alertProducto.classList.remove("visually-hidden");
+}
+
+const mostrarMensajeExitoProducto = (mensaje) => {
+    messageProducto.innerText = mensaje;
+    messageProducto.classList.remove("visually-hidden");
+}
+
+const ocultarAlertasProducto = () => {
+    alertProducto.classList.add("visually-hidden");
+    messageProducto.classList.add("visually-hidden");
+}
+
+const mostrarAlertaIngrediente = (mensaje) => {
+    alertIngrediente.innerText = mensaje;
+    alertIngrediente.classList.remove("visually-hidden");
+}
+
+const mostrarMensajeExitoIngrediente = (mensaje) => {
+    messageIngrediente.innerText = mensaje;
+    messageIngrediente.classList.remove("visually-hidden");
+}
+
+const ocultarAlertasIngrediente = () => {
+    alertIngrediente.classList.add("visually-hidden");
+    messageIngrediente.classList.add("visually-hidden");
+}
 
 agregarIngredienteBtn.addEventListener("click", () => {
     const ingrediente = obtenerDatosIngrediente();
@@ -9,13 +43,20 @@ agregarIngredienteBtn.addEventListener("click", () => {
 
 agregarProductoBtn.addEventListener("click", async () => {
     const producto = obtenerDatosProducto();
-    const productoAgregado = await agregarProducto(producto);
-    agregarFilaProducto(productoAgregado);
+    if (producto) {
+        const productoAgregado = await agregarProducto(producto);
+        agregarFilaProducto(productoAgregado);
+    }
 });
 
 const obtenerDatosIngrediente = () => {
     const nombreIngrediente = document.getElementById("nombreIngrediente").value;
     const cantidad = document.getElementById("cantidadIngrediente").value;
+    if (!nombreIngrediente || !cantidad) {
+        ocultarAlertasIngrediente();
+        mostrarAlertaIngrediente("Completar campos");
+        return;
+    }
     return { nombreIngrediente, cantidad };
 }
 
@@ -29,6 +70,16 @@ const obtenerDatosProducto = () => {
             const idIngrediente = ingredientesProducto.options[i].dataset.id;
             ingredientes.push({ id: idIngrediente, nombre: ingredientesProducto.options[i].value });
         }
+    }
+    if (!nombreProducto || !costo) {
+        ocultarAlertasProducto();
+        mostrarAlertaProducto("Completar campos");
+        return;
+    }
+    if (!ingredientes.length > 0) {
+        ocultarAlertasProducto();
+        mostrarAlertaProducto("Selecciona al menos un ingrediente");
+        return;
     }
     return {
         nombreProducto,
@@ -48,7 +99,9 @@ const agregarIngrediente = async (ingrediente) => {
     try {
         const response = await fetch("/ingredientes", opciones);
         if (response.ok) {
-            console.table(await response.json());
+            ocultarAlertasIngrediente();
+            mostrarMensajeExitoIngrediente("Se ha creado un nuevo ingrediente satisfactoriamente");
+            return await response.json();
         }
     } catch (e) {
         console.log(e);
@@ -66,6 +119,8 @@ const agregarProducto = async (producto) => {
     try {
         const response = await fetch("/productos", opciones);
         if (response.ok) {
+            ocultarAlertasProducto();
+            mostrarMensajeExitoProducto("Se ha creado un nuevo producto satisfactoriamente");
             return await response.json();
         }
     } catch (e) {

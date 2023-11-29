@@ -1,3 +1,9 @@
+const iniciarSesionInicioBtn = document.getElementById("iniciar-sesion-inicio");
+
+iniciarSesionInicioBtn.addEventListener("click", () => {
+    window.location.href = "/login";
+});
+
 const mostrarAlerta = (mensaje) => {
     const alert = document.getElementById("alert");
     alert.innerText = mensaje;

@@ -27,6 +27,10 @@ class OrdenesService {
             throw Error("No se puede agregar una orden");
         }
 
+        if (!orden.nombreCliente || !orden.numeroTelefono || !orden.productos) {
+            throw Error("Error: campos vacíos");
+        }
+
         const nuevaOrden = new Orden();
         Object.assign(nuevaOrden, orden);
 
