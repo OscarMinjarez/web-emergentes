@@ -10,6 +10,6 @@ const dataSource = new typeorm.DataSource({
     database: "sonorasia",
     synchronize: true,
     entities: [path.join(__dirname, ".", "entities/**/*.js")]
-})
+});
 
 module.exports = dataSource;
