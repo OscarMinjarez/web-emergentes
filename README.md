@@ -23,16 +23,16 @@ El equipo está conformado por:
     CREATE DATABASE sonorasia;
     ```
 
-    Además, deberá crear un super usuario para tener el control total de la aplicación:
-
-    ```sql
-    INSERT INTO sonorasia.super_usuarios (id, correo, nombreUsuario, contrasenia) VALUES ('1', 'admin@correo.com', 'admin', 'admin');
-    ```
-
 3. Después, ejecute el siguiente comando para iniciar la aplicación:
 
     ```bash
     npm start
+    ```
+
+    Además, deberá crear un super usuario para tener el control total de la aplicación:
+
+    ```sql
+    INSERT INTO sonorasia.super_usuarios (id, correo, nombreUsuario, contrasenia) VALUES ('1', 'admin@correo.com', 'admin', 'admin');
     ```
 
     Este comando realizará un chequeo de la base de datos y la actualizará utilizando las credenciales contenidas en el proyecto:
