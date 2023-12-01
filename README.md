@@ -1,7 +1,7 @@
 # Sonorasia
 
 Este proyecto es una aplicación que permite la creación de una base de datos llamada "sonorasia" para el restaurante del mismo nombre.
-
+https://img.youtube.com/vi/<VIDEO ID>/maxresdefault.jpg
 El equipo está conformado por:
 
 - Oscar Minjarez
@@ -9,6 +9,10 @@ El equipo está conformado por:
 - Alejandro Izaguirre
 
 ## Primeros Pasos
+
+VIDEO INTRODUCCIÓN: 
+
+https://drive.google.com/file/d/1l1oFiU0Sr8LrHLD_R3z2ddMTZ_bl0Lqk/view?usp=sharing
 
 1. Después de obtener el repositorio, ejecutaremos el siguiente comando para instalar todas las dependencias del proyecto:
 
